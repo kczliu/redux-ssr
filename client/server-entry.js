@@ -1,4 +1,4 @@
 import React from 'react'
-import App from  './app.js'
+import App from './views/app.js'
 
 export default <App></App>
