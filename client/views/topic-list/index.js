@@ -1,44 +1,64 @@
 import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 import {observer,inject} from 'mobx-react'
+
+/*import Helmmet from 'react-helmet'*/
+
+
+import Button from '@material-ui/core/Button'
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
+
+import Container from '../layout/container'
+import TopicListItem from './list-item'
+
+
 @inject('appState') @observer
 export default  class TopicList extends Component {
-    changeName=(e)=>{
-        this.props.appState.changeName(e.target.value)
-    }
-    reset=()=>{
-        this.props.appState.reset()
-    }
-    add1=()=>{
-        this.props.appState.add1()
-    }
-    add2=()=>{
-        this.props.appState.add2()
-    }
-    add3=()=>{
-        this.props.appState.add3()
+    constructor(){
+        super()
+       this.state={
+            tabIndex:0
+       }
     }
 
+    changeTab=(e,index)=>{
+        this.setState({
+            tabIndex:index
+        })
+    }
+
+    listItemClick=()=>{
+
+    }
+
+/*    componentWillMount(){
+        setTimeout(()=>{
+            this.props.appState.count =3
+        })
+    }*/
+    bootstrap(){
+        return new Promise(resolve=>{
+            setTimeout(()=>{
+                this.props.appState.count =3
+                resolve(true)
+            })
+        })
+    }
     render(){
         return(
-            <div>
-                <input type="text" readOnly value={this.props.appState.count1} /> <button onClick = {this.add1}>add</button>
-                <br/>
-                <input type="text" readOnly value={this.props.appState.count2} /> <button onClick = {this.add2}>add</button>
-                <br/>
-                <input type="text" readOnly value={this.props.appState.count3} /> <button onClick = {this.add3}>add</button>
-                <br/>
-                <input type="text"  value={this.props.appState.total} />
-
-                <button onClick = {this.reset}>reset</button>
-
-
-                <div>{this.props.appState.msg}</div>
-            </div>
+            <Container>
+                <Tabs value={this.state.tabIndex} onChange={this.changeTab}>
+                    <Tab label="全部"></Tab>
+                    <Tab label="分享"></Tab>
+                    <Tab label="工作"></Tab>
+                    <Tab label="问答"></Tab>
+                    <Tab label="精品"></Tab>
+                    <Tab label="测试"></Tab>
+                </Tabs>
+                <TopicListItem onClick={this.listItemClick} topic={} />
+            </Container>
         )
     }
-}
-
-TopicList.propTypes={
-    appState:PropTypes.object.isRequired
 }

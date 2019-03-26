@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSR-server</title>
+    <style id = 'js-server-side'>
+        <%%-materialClass %>
+    </style>
+</head>
+<body>
+<div id="root"><%%- appString %></div>
+<script>
+    window.__INITIAL_STATE__ = <%%- initialState %>
+</script>
+</body>
+</html>
